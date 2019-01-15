@@ -1,0 +1,83 @@
+Reflection:
+What were you trying to do? 
+We wanted to implement an automated truth tree generator, where upon entering your premises and negated conclusion,
+the program would be able to return true if it was a valid argument, or false if it was an invalid argument. 
+We succeeded in achieving our goal, and were also able to visualize the completed tree, instead of simply returning
+true or false. We are very happy with the results.
+
+How did you go about it?
+We implemented two different classes, AutoSolver and LogicExpr. The first class turns the string entered on the 
+command line (ex. 'P->Q') into a LogicExpr object. In our LogicExpr class, the main idea was to create several
+useful functions that would allow us to parse, find the main connective, and decompose correctly based off the main connective along
+with some visualization.
+
+Our second class, AutoSolver, contains our Tree, which is made up of Nodes, and also contains all of our algorithm functions for
+solving our Tree. To generalize, a Tree is made with our premises and negated conclusions at the root. From here, we apply a depth search algorithm,
+decomposing everything that's not a literal or a negation of a literal in each node from top to bottom (illustrated below). Every time a decomposition is made,
+we check to see if we can close the branches where the newly decomposed lines were added to.
+
+How did it work? 
+Each node contains a vector of pairs, where each pair is a LogicExpr object and a boolean
+that determines if it's been decomposed, or is a literal/negation of a literal.
+
+Let's run through an example of how the program would go about solving two arguments:
+Ex #1: Note that the entire structure as a whole is our Tree.
+			Root
+			P->Q
+			P
+			~Q
+
+		   /	        \
+		Child		Child
+		~P		Q
+		XX		XX
+
+For example, Root is a node, and so are the two children. Root's vector would contain three
+items, P->Q mapped with false, as it hasn't been decomposed yet and is not a literal, P mapped with true, because it's a literal,
+and ~Q mapped with true, as it's the negation of a literal.
+
+Our algorithm would first decompose P->Q at the root node, adding two children nodes, ~P and Q. Immediately after adding ~P and Q, it checks to
+see if we can close the leaf nodes (nodes with no children) that ~P and Q were added to. We were able to do so in this case, as root node contained their negations.
+Now that all branches are closed, we are done.
+
+Ex #2:
+				Root			
+		   	     A -> (B & C)
+				C <-> B
+				 ~C
+				 ~~A
+		
+			/		   \
+		Child				Child
+		~A				B&C
+                    
+	  /		\		   / 		\
+
+	Child		Child		Child		Child
+	C		~C		C		~C
+	B		~B		B		~B
+	XX		A		XX		A
+			XX				B
+							C
+							XX
+
+Starting at the root, we see if A -> (B&C) is false (false = decomposed already or a literal). Because it hasn't been decomposed already and isn't a literal,
+it'll have the value of true, so our algorithm knows work needs to be done. Our LogicExpr class determines that the main connective is a conditional, and takes
+apart the statement under the rules of a conditional, creating two new nodes and adding the newly decomposed sentences to the two nodes as appropriate.
+It looks to see if any branches can be closed, and as of now, they cannot be.
+Next, C<->B will be decomposed, as our algorithm moves from top to bottom in the vector that each node has before moving in a depth-search pattern down the tree.
+The algorithm determines that C<->B must be decomposed, and decomposed into four new nodes found at the bottom of the tree. It checks to see if branches can now close.
+All branches close except for the rightmost leaf node. ~C in the root is skipped over, as its value is true (negation of a literal). ~~A is decomposed to the only branch
+that is still open. Now, since Root has been completely decomposed, if no branches were closed at this point, we would have moved down left to the child branch that contains 
+~A and continued this process. However, since the rest of the branches are closed except for the rightmost leaf node, we move down to the node that contains child B&C.
+Once B&C is decomposed, we can finally close the last branch. All branches are now closed - valid argument. 
+
+
+What changes/extensions would you like to see? What did you learn?
+We would be very happy to see FOL implemented into our program. Besides that, we are very happy with how the software turned out.
+It works great and performs its purpose.
+We learned a lot from this project - not only did we become masters of truth trees, knowing them front to back,
+but we also learned new techniques regarding the Tree datastructure and furthered our knowledge of recursion, two very
+good things to get better at. Can't forget to mention debugging, either. It certainly got messy at times and was
+extremelly exciting the first time it properly solved an argument.
+This project was great in that we were able to better our knowledge of logic and programming at the same time. 

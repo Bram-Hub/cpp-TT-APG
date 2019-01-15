@@ -1,0 +1,9 @@
+﻿  LogicExpr.cpp
+c:\users\logan\documents\bramhub\windows only\jasper boland and troy ferrazano tt atp visual\generator\generator\logicexpr.cpp(73): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+c:\users\logan\documents\bramhub\windows only\jasper boland and troy ferrazano tt atp visual\generator\generator\logicexpr.cpp(115): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+c:\users\logan\documents\bramhub\windows only\jasper boland and troy ferrazano tt atp visual\generator\generator\logicexpr.cpp(131): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+  Generator.cpp
+  AutoSolver.cpp
+  Generating Code...
+  Generator.vcxproj -> C:\Users\Logan\Documents\Bramhub\Windows only\Jasper Boland and Troy Ferrazano TT ATP Visual\Generator\x64\Debug\Generator.exe
+  Generator.vcxproj -> C:\Users\Logan\Documents\Bramhub\Windows only\Jasper Boland and Troy Ferrazano TT ATP Visual\Generator\x64\Debug\Generator.pdb (Partial PDB)
